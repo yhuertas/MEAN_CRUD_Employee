@@ -1,0 +1,83 @@
+<div class="container">
+    <p>{{resultadoOperaciones}}</p>
+    <div class="row mt-5">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Empleados</h1>
+                    <form #registrarEmpleadoForm="ngForm">
+                        <imput id="_id" type="hidden" name="_id" ngDefaultControl #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id"></imput>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name"
+                                placeholder="Nombre"
+                                name="name" #name="ngModel"
+                                [(ngModel)]="employeeService.selectedEmployee.name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                id="position" placeholder="Cargo"
+                                name="position" #position="ngModel"
+                                [(ngModel)]="employeeService.selectedEmployee.position">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="office"
+                                placeholder="Oficina"
+                                name="office" #office="ngModel"
+                                [(ngModel)]="employeeService.selectedEmployee.office">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control"
+                                id="salary" placeholder="Salario"
+                                name="salary" #salary="ngModel"
+                                [(ngModel)]="employeeService.selectedEmployee.salary"> 
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2" (click)="crearEmp(registrarEmpleadoForm)" >Guardar</button>
+                        <button type="submit" class="btn btn-secondary" (click)="cleanForm(registrarEmpleadoForm)">limpiar</button>
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-8 mt-3">
+            <form #listarEmpleadoForm="ngForm" (ngSubmit)="listar()">
+                <button type="submit" class="btn btn-primary">Listar los
+                    empleados</button>
+            </form>
+            <br>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <!-- <th class="text-center" scope="col">#</th> -->
+                        <th class="text-center" scope="col">Nombre</th>
+                        <th class="text-center" scope="col">Posición</th>
+                        <th class="text-center" scope="col">Oficina</th>
+                        <th class="text-center" scope="col">Salario</th>
+                        <th class="text-center" colspan="3" scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let empleado of listaEmpleados">
+                        <!-- <th scope="row">1</th> -->
+                        <td class="text-center tamanofuente">{{empleado.name}}</td>
+                        <td class="text-center tamanofuente">{{empleado.position}}</td>
+                        <td class="text-center tamanofuente">{{empleado.office}}</td>
+                        <td class="text-center tamanofuente">{{empleado.salary}}</td>
+                        <td lass="text-right"><button class="btn
+                                btn-success" (click)="edit(empleado)">
+                                <i class="material-icons">edit</i></button></td>
+                        <td lass="text-left"><button class="btn btn-danger"
+                                (click)="eliminar(empleado._id)"><i
+                                    class="material-icons">delete</i></button></td>
+                        <td lass="text-right"><button class="btn
+                                btn-success" [routerLink]="['/actualizar']"
+                                (click)="guardarEmpleado(empleado)">
+                                Editar*</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
